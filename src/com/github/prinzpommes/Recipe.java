@@ -250,6 +250,11 @@ public class Recipe extends JavaPlugin {
 			blazerod.shape(new String[] { "ggg", "gbg", "ggg" })
 				.setIngredient('g', Material.GOLD_BLOCK)
 				.setIngredient('b',Material.STICK);
+			
+		ShapedRecipe netherstar = new ShapedRecipe(new ItemStack(Material.NETHER_STAR, 1));
+			netherstar.shape(new String[] { " d ", "dbd", " d " })
+				.setIngredient('d', Material.DIAMOND)
+				.setIngredient('b',Material.BLAZE_POWDER);
 		
 		
 		FurnaceRecipe sponge = new FurnaceRecipe(new ItemStack(Material.SPONGE,
@@ -357,12 +362,16 @@ public class Recipe extends JavaPlugin {
 			getServer().addRecipe(soul3);
 			getServer().addRecipe(soul4);
 		}
+		if(Configloader.getnetherstar()){
+			
+			getServer().addRecipe(netherstar);
+		}
 		
 	}
 
 	public void onDisable() {
 		log = Logger.getLogger("Minecraft");
-		log.info("Recipes disabled");
+		log.info("Returning back to now...");
 	}
 	
 	

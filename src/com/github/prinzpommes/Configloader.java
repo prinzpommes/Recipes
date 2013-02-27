@@ -8,6 +8,7 @@ public class Configloader {
 	private static boolean glowstone;
 	private static boolean soulsand;
 	private static boolean blazerod;
+	private static boolean netherstar;
 	
 	
 	
@@ -23,6 +24,7 @@ public class Configloader {
 		glowstone = this.plugin.getConfig ().getBoolean("glowstone");
 		soulsand = this.plugin.getConfig ().getBoolean("soulsand");
 		blazerod = this.plugin.getConfig ().getBoolean("blazerod");
+		netherstar = this.plugin.getConfig().getBoolean("netherstar");
 	}
 	
 	
@@ -41,5 +43,8 @@ public class Configloader {
 	}
 	public static boolean getblazerod(){
 		return blazerod;
+	}
+	public static boolean getnetherstar(){
+		return netherstar;
 	}
 }
