@@ -12,41 +12,33 @@ import org.bukkit.inventory.ShapelessRecipe;
 import org.bukkit.material.SpawnEgg;
 import org.bukkit.plugin.java.JavaPlugin;
 
+
+
 public class Recipe extends JavaPlugin {
 
 	public static Recipe plugin;
 	public final static Logger logger = Logger.getLogger("Minecraft");
 	private static String mainDirectory = "plugins/Recipes/";
+	private static Configloader CFGL;
 
 	Logger log;
 	
 	protected FileConfiguration config = null;
 
 	public void onEnable() {
-		log = Logger.getLogger("Minecraft");
-		new File(mainDirectory).mkdir();
-		log.info("Welcome to the Future of Crafting! Recipes has been enabled successfully.");
-
-		
-		
-		
-		
-		
-		
-		
-		new Configloader(this);
-		
-		config = this.getConfig();
-		
-		this.getConfig().options().copyDefaults(true);
-		this.saveConfig();
-		
-		
-		
-		
-		
-		
-		
+		 log = Logger.getLogger("Minecraft");
+	        File pldir = new File(mainDirectory);
+	        if (!pldir.exists()) {
+	            pldir.mkdir();
+	        }
+	        log.info("Welcome to the Future of Crafting! Recipes has been enabled successfully.");
+	        CFGL = new Configloader(this);
+	        config = this.getConfig();
+	        
+	        this.getConfig().options().copyDefaults(true);
+	        this.saveConfig();
+	 
+	        new MOTD (this);
 		
 		
 		
@@ -223,15 +215,13 @@ public class Recipe extends JavaPlugin {
 				.setIngredient('g', Material.GLASS)
 				.setIngredient('d', Material.DIAMOND);
 
-		ShapedRecipe chain_fuss1 = new ShapedRecipe(new ItemStack(
-				Material.CHAINMAIL_BOOTS, 1));
-		chain_fuss1.shape(new String[] { "g g", "g g", "   " }).setIngredient(
-				'g', Material.GLASS);
+		ShapedRecipe chain_fuss1 = new ShapedRecipe(new ItemStack(Material.CHAINMAIL_BOOTS, 1));
+			chain_fuss1.shape(new String[] { "g g", "g g", "   " })
+				.setIngredient('g', Material.GLASS);
 
-		ShapedRecipe chain_fuss2 = new ShapedRecipe(new ItemStack(
-				Material.CHAINMAIL_BOOTS, 1));
-		chain_fuss2.shape(new String[] { "   ", "g g", "g g" }).setIngredient(
-				'g', Material.GLASS);
+		ShapedRecipe chain_fuss2 = new ShapedRecipe(new ItemStack(Material.CHAINMAIL_BOOTS, 1));
+			chain_fuss2.shape(new String[] { "   ", "g g", "g g" })
+				.setIngredient('g', Material.GLASS);
 
 		ShapedRecipe soul1 = new ShapedRecipe(new ItemStack(Material.SOUL_SAND, 1));
 			soul1.shape(new String[] { "gg ", "gg ", "   " })
@@ -255,6 +245,41 @@ public class Recipe extends JavaPlugin {
 			netherstar.shape(new String[] { " d ", "dbd", " d " })
 				.setIngredient('d', Material.DIAMOND)
 				.setIngredient('b',Material.BLAZE_POWDER);
+			
+		ShapedRecipe netherwartseed1 = new ShapedRecipe(new ItemStack(Material.NETHER_STALK, 6));
+			netherwartseed1.shape(new String[] { "nnn", "nrn", "nnn" })
+				.setIngredient('n', Material.NETHERRACK)
+				.setIngredient('r',Material.RED_MUSHROOM);
+			
+		ShapedRecipe netherwartseed2 = new ShapedRecipe(new ItemStack(Material.NETHER_STALK, 3));
+			netherwartseed2.shape(new String[] { "nnn", "nrn", "nnn" })
+				.setIngredient('n', Material.NETHERRACK)
+				.setIngredient('r',Material.BROWN_MUSHROOM);
+			
+		ShapedRecipe feder1 = new ShapedRecipe(new ItemStack(Material.FEATHER, 1));
+			feder1.shape(new String[] { "p  ", "s  ", "   " })
+				.setIngredient('p', Material.PAPER)
+				.setIngredient('s',Material.STRING);
+		ShapedRecipe feder2 = new ShapedRecipe(new ItemStack(Material.FEATHER, 1));
+			feder2.shape(new String[] { " p ", " s ", "   " })
+				.setIngredient('p', Material.PAPER)
+				.setIngredient('s',Material.STRING);
+		ShapedRecipe feder3 = new ShapedRecipe(new ItemStack(Material.FEATHER, 1));
+			feder3.shape(new String[] { "  p", "  s", "   " })
+				.setIngredient('p', Material.PAPER)
+				.setIngredient('s',Material.STRING);
+		ShapedRecipe feder4 = new ShapedRecipe(new ItemStack(Material.FEATHER, 1));
+			feder4.shape(new String[] { "   ", "p  ", "s  " })
+				.setIngredient('p', Material.PAPER)
+				.setIngredient('s',Material.STRING);
+		ShapedRecipe feder5 = new ShapedRecipe(new ItemStack(Material.FEATHER, 1));
+			feder5.shape(new String[] { "   ", " p ", " s " })
+				.setIngredient('p', Material.PAPER)
+				.setIngredient('s',Material.STRING);
+		ShapedRecipe feder6 = new ShapedRecipe(new ItemStack(Material.FEATHER, 1));
+			feder6.shape(new String[] { "   ", "  p", "  s" })
+				.setIngredient('p', Material.PAPER)
+				.setIngredient('s',Material.STRING);
 		
 		
 		FurnaceRecipe sponge = new FurnaceRecipe(new ItemStack(Material.SPONGE,
@@ -287,23 +312,35 @@ public class Recipe extends JavaPlugin {
 				Material.NETHER_BRICK, 1), Material.NETHERRACK);
 		FurnaceRecipe nrack = new FurnaceRecipe(new ItemStack(
 				Material.NETHERRACK, 1), Material.GRAVEL);
-		
+		FurnaceRecipe rottenflesh = new FurnaceRecipe(new ItemStack(
+				Material.RAW_BEEF, 1), Material.ROTTEN_FLESH);
+		FurnaceRecipe gravel = new FurnaceRecipe(new ItemStack(
+				Material.GRAVEL, 1), Material.DIRT);
 
+		
 		getServer().addRecipe(sponge);
+		
+		getServer().addRecipe(gravel);
+		
 		getServer().addRecipe(sr);
+		
 		getServer().addRecipe(ironingot1);
 		getServer().addRecipe(ironingot2);
 		getServer().addRecipe(ironingot3);
 		getServer().addRecipe(ironingot4);
+		
 		getServer().addRecipe(goldingot1);
 		getServer().addRecipe(goldingot2);
 		getServer().addRecipe(goldingot3);
 		getServer().addRecipe(goldingot4);
+		
 		getServer().addRecipe(diamond1);
 		getServer().addRecipe(diamond2);
 		getServer().addRecipe(diamond3);
 		getServer().addRecipe(diamond4);
+		
 		getServer().addRecipe(wheat);
+		
 		getServer().addRecipe(grass1);
 		getServer().addRecipe(grass2);
 		getServer().addRecipe(grass3);
@@ -315,18 +352,28 @@ public class Recipe extends JavaPlugin {
 		getServer().addRecipe(oldcobble4);
 		getServer().addRecipe(oldcobble5);
 		getServer().addRecipe(oldcobble6);
+		
 		getServer().addRecipe(villager);
+		
 		getServer().addRecipe(wolf);
+		
 		getServer().addRecipe(huhn);
+		
 		getServer().addRecipe(kuh);
+		
 		getServer().addRecipe(schaf);
+		
 		getServer().addRecipe(schwein);
+		
 		getServer().addRecipe(netz1);
 		getServer().addRecipe(netz2);
+		
 		getServer().addRecipe(sattel1);
 		getServer().addRecipe(sattel2);
 		getServer().addRecipe(sattel3);
+		
 		getServer().addRecipe(grassbueschel);
+		
 		getServer().addRecipe(chain_helm1);
 		getServer().addRecipe(chain_helm2);
 		getServer().addRecipe(chain_brust);
@@ -334,9 +381,26 @@ public class Recipe extends JavaPlugin {
 		getServer().addRecipe(chain_fuss1);
 		getServer().addRecipe(chain_fuss2);
 		
+		getServer().addRecipe(rottenflesh);
+		
+		getServer().addRecipe(feder1);
+		getServer().addRecipe(feder2);
+		getServer().addRecipe(feder3);
+		getServer().addRecipe(feder4);
+		getServer().addRecipe(feder5);
+		getServer().addRecipe(feder6);
+	
+		
+		
 		if(Configloader.getnetherrack()){
 			
 			getServer().addRecipe(nrack);
+		}
+		
+		if(Configloader.getnetherwartseed()){
+			
+			getServer().addRecipe(netherwartseed1);
+			getServer().addRecipe(netherwartseed2);
 		}
 		
 		if(Configloader.getblazerod()){
@@ -367,12 +431,18 @@ public class Recipe extends JavaPlugin {
 			getServer().addRecipe(netherstar);
 		}
 		
+		
 	}
 
+	
 	public void onDisable() {
 		log = Logger.getLogger("Minecraft");
 		log.info("Returning back to now...");
 	}
+	public static Configloader getCFGL() {
+		return CFGL;
+	}
+
 	
 	
 }
